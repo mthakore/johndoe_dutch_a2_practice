@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dutch A2 100 Practice Questions</title>
+    <style>
+        :root {
+            --primary: #1b365d;
+            --secondary: #0076a8;
+            --accent: #e87722;
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --correct: #2e7d32;
+            --correct-bg: #e8f5e9;
+            --incorrect: #c62828;
+            --incorrect-bg: #ffebee;
+            --border: #cccccc;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin: 0 0 10px 0;
+            font-size: 1.8rem;
+        }
+
+        p.subtitle {
+            color: #666;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .score-board {
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #eef3f8;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-weight: bold;
+            color: var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: #e0e6ed;
+            color: var(--primary);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .question-card {
+            background-color: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-left: 5px solid var(--secondary);
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .question-number {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--secondary);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .english-prompt {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 15px;
+            background: #fff;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px dashed #bbb;
+        }
+
+        .sentence-builder {
+            font-size: 1.1rem;
+            line-height: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        select {
+            font-size: 1rem;
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            background-color: #ffffff;
+            cursor: pointer;
+            margin: 0 4px;
+            font-weight: 600;
+            color: var(--primary);
+            transition: all 0.2s ease;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 5px rgba(0, 118, 168, 0.4);
+        }
+
+        .word-order-label {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .option-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            background: #fff;
+        }
+
+        .option-label:hover {
+            background-color: #f0f7fc;
+        }
+
+        .option-label input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-check {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-check:hover {
+            background-color: #d06312;
+        }
+
+        .feedback-box {
+            margin-top: 15px;
+            padding: 12px 15px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            display: none;
+        }
+
+        .feedback-box.correct {
+            display: block;
+            background-color: var(--correct-bg);
+            color: var(--correct);
+            border: 1px solid #a5d6a7;
+        }
+
+        .feedback-box.incorrect {
+            display: block;
+            background-color: var(--incorrect-bg);
+            color: var(--incorrect);
+            border: 1px solid #ef9a9a;
+        }
+
+        .explanation {
+            font-size: 0.9rem;
+            margin-top: 5px;
+            color: #444;
+            font-weight: normal;
+        }
+
+        .btn-reset {
+            display: block;
+            width: 100%;
+            margin-top: 30px;
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.05rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn-reset:hover {
+            background-color: #122440;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Dutch A2 Practice: 100 Sentences & Word Order</h1>
+        <p class="subtitle">Select the correct words and sentence structures based on official Inburgering exam prompts.</p>
+    </header>
+
+    <div class="score-board">
+        <span>Completed: <span id="progress">0</span> / <span id="total-q">100</span></span>
+        <span>Score: <span id="score">0</span> / <span id="total-score">100</span></span>
+    </div>
+
+    <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterQuestions('all')">All (100)</button>
+        <button class="filter-btn" onclick="filterQuestions(1, 10)">1. Sick & Health</button>
+        <button class="filter-btn" onclick="filterQuestions(11, 20)">2. Appointments</button>
+        <button class="filter-btn" onclick="filterQuestions(21, 30)">3. Work & Shifts</button>
+        <button class="filter-btn" onclick="filterQuestions(31, 40)">4. Neighbours</button>
+        <button class="filter-btn" onclick="filterQuestions(41, 50)">5. Housing & Repairs</button>
+        <button class="filter-btn" onclick="filterQuestions(51, 60)">6. Courses & School</button>
+        <button class="filter-btn" onclick="filterQuestions(61, 70)">7. Free Time</button>
+        <button class="filter-btn" onclick="filterQuestions(71, 80)">8. Shopping & Food</button>
+        <button class="filter-btn" onclick="filterQuestions(81, 90)">9. Service & Library</button>
+        <button class="filter-btn" onclick="filterQuestions(91, 100)">10. Email & Connectors</button>
+    </div>
+
+    <div id="quiz-container"></div>
+
+    <button class="btn-reset" onclick="resetQuiz()">Reset All 100 Questions</button>
+</div>
+
+<script>
+const questions = [
+    {
+        "id": 1,
+        "english": "I am sick today and I cannot work.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik ben vandaag ziek en ik ", "SELECT_1", " niet ", "SELECT_2", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "kan", "kunnen", "kunt"], "correct": "kan"},
+            {"id": "SELECT_2", "options": ["---", "werken", "werkt", "gewerkt"], "correct": "werken"}
+        ],
+        "explanation": "Modal verb <b>kan</b> takes the second position, and the second verb <b>werken</b> goes to the end as an infinitive."
+    },
+    {
+        "id": 2,
+        "english": "My daughter is sick and is not coming to school today.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Mijn dochter is ziek en ", "SELECT_1", " vandaag niet naar school."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "komt", "komen", "is gekomen"], "correct": "komt"}
+        ],
+        "explanation": "After <i>en</i>, the main clause word order continues with verb <b>komt</b> for third-person singular (<i>mijn dochter</i>)."
+    },
+    {
+        "id": 3,
+        "english": "I have an appointment with the GP at ten o'clock.",
+        "type": "word_order_choice",
+        "promptPrefix": "Choose the correct sentence starting with time (Om tien uur):",
+        "options": [
+            "Om tien uur ik heb een afspraak bij de huisarts.",
+            "Om tien uur heb ik een afspraak bij de huisarts.",
+            "Om tien uur een afspraak heb ik bij de huisarts."
+        ],
+        "correctIndex": 1,
+        "explanation": "Inversion rule: when starting with time (<i>Om tien uur</i>), the verb <b>heb</b> comes before the subject <b>ik</b>."
+    },
+    {
+        "id": 4,
+        "english": "My son has the flu, so he stays home.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Mijn zoontje heeft griep, ", "SELECT_1", " ", "SELECT_2", " thuis."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "dus", "omdat", "want"], "correct": "dus"},
+            {"id": "SELECT_2", "options": ["---", "blijft hij", "hij blijft", "blijft"], "correct": "blijft hij"}
+        ],
+        "explanation": "<b>Dus</b> acts as an adverbial connector that causes inversion (Verb + Subject: <b>blijft hij</b>) when introducing a conclusion."
+    },
+    {
+        "id": 5,
+        "english": "I cannot come because I have to go to the doctor.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik kan niet komen, ", "SELECT_1", " ik naar de dokter ", "SELECT_2", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "want", "omdat", "daarom"], "correct": "omdat"},
+            {"id": "SELECT_2", "options": ["---", "moet gaan", "gaat moeten", "moet"], "correct": "moet gaan"}
+        ],
+        "explanation": "<b>Omdat</b> introduces a subclause, pushing verbs to the end: modal <b>moet</b> + infinitive <b>gaan</b>."
+    },
+    {
+        "id": 6,
+        "english": "Tomorrow I will let you know how I am doing.",
+        "type": "word_order_choice",
+        "promptPrefix": "Choose the correct sentence starting with 'Morgen':",
+        "options": [
+            "Morgen ik laat weten hoe het met mij gaat.",
+            "Morgen laat ik weten hoe het met mij gaat.",
+            "Morgen laat weten ik hoe het met mij gaat."
+        ],
+        "correctIndex": 1,
+        "explanation": "Starting with <i>Morgen</i> causes inversion: Verb (<b>laat</b>) + Subject (<b>ik</b>)."
+    },
+    {
+        "id": 7,
+        "english": "My child will come back to school tomorrow if they feel better.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Mijn kind komt morgen weer naar school ", "SELECT_1", " het beter ", "SELECT_2", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "als", "want", "daarom"], "correct": "als"},
+            {"id": "SELECT_2", "options": ["---", "gaat", "gaan", "is gegaan"], "correct": "gaat"}
+        ],
+        "explanation": "<b>Als</b> (if/when) introduces a subclause, sending verb <b>gaat</b> to the end."
+    },
+    {
+        "id": 8,
+        "english": "I am going to the pharmacy to get medicines.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik ga naar de apotheek om medicijnen ", "SELECT_1", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "te halen", "halen", "gehaald"], "correct": "te halen"}
+        ],
+        "explanation": "Structure <b>om + [object] + te + infinitive</b> expresses purpose ('in order to get')."
+    },
+    {
+        "id": 9,
+        "english": "Cheer up, soon you will feel better!",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Kop op, straks ", "SELECT_1", " je je weer beter!"],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "voel", "voelt", "voelen"], "correct": "voel"}
+        ],
+        "explanation": "With inversion (<i>straks voel je</i>), the verb ending <i>-t</i> is dropped when <b>je/jij</b> immediately follows!"
+    },
+    {
+        "id": 10,
+        "english": "I am sending this email because I want to report sick.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik stuur deze e-mail ", "SELECT_1", " ik mij wil ", "SELECT_2", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "omdat", "want", "daarom"], "correct": "omdat"},
+            {"id": "SELECT_2", "options": ["---", "ziekmelden", "ziekgemeld", "ziek meldt"], "correct": "ziekmelden"}
+        ],
+        "explanation": "Subclause with <b>omdat</b> pushes the infinitive <b>ziekmelden</b> to the end next to modal <i>wil</i>."
+    },
+    {
+        "id": 11,
+        "english": "I have an appointment on Monday at ten o'clock.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik ", "SELECT_1", " een afspraak op maandag om tien uur."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "heb", "heeft", "hebben"], "correct": "heb"}
+        ],
+        "explanation": "Standard V2 order: Subject (<b>Ik</b>) + Verb (<b>heb</b>)."
+    },
+    {
+        "id": 12,
+        "english": "I cannot come tomorrow because I have to work.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik kan morgen niet komen, ", "SELECT_1", " ik moet ", "SELECT_2", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "want", "omdat", "daarom"], "correct": "want"},
+            {"id": "SELECT_2", "options": ["---", "werken", "werkt", "gewerkt"], "correct": "werken"}
+        ],
+        "explanation": "<b>Want</b> maintains standard main clause word order (Subject + Verb: <i>ik moet werken</i>)."
+    },
+    {
+        "id": 13,
+        "english": "Can we meet on Friday at two o'clock?",
+        "type": "word_order_choice",
+        "promptPrefix": "Choose the correct question structure:",
+        "options": [
+            "Wij kunnen vrijdag om twee uur afspreken?",
+            "Kunnen wij vrijdag om twee uur afspreken?",
+            "Vrijdag om twee uur kunnen afspreken wij?"
+        ],
+        "correctIndex": 1,
+        "explanation": "Yes/No questions start with the verb: <b>Kunnen</b> + Subject (<b>wij</b>) + time + infinitive at the end (<b>afspreken</b>)."
+    },
+    {
+        "id": 14,
+        "english": "Could you please give me a new date?",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Kunt u mij alstublieft een nieuwe datum ", "SELECT_1", "?"],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "geven", "geeft", "gegeven"], "correct": "geven"}
+        ],
+        "explanation": "Polite request with modal <b>Kunt</b> requires infinitive <b>geven</b> at the end of the sentence."
+    },
+    {
+        "id": 15,
+        "english": "I would like to move my appointment to Tuesday.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik wil mijn afspraak ", "SELECT_1", " naar dinsdag."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "verplaatsen", "verplaatst", "verplaatste"], "correct": "verplaatsen"}
+        ],
+        "explanation": "Modal verb <b>wil</b> takes infinitive <b>verplaatsen</b>."
+    },
+    {
+        "id": 16,
+        "english": "Dear Madam, I cannot come to the appointment tomorrow.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Beste mevrouw, ik kan morgen niet naar de afspraak ", "SELECT_1", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "komen", "komt", "kwam"], "correct": "komen"}
+        ],
+        "explanation": "Modal verb <i>kan</i> pairs with infinitive <b>komen</b>."
+    },
+    {
+        "id": 17,
+        "english": "I am sorry, but I have to cancel our appointment.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Het spijt me, maar ik moet onze afspraak ", "SELECT_1", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "afzeggen", "afgezegd", "afzegt"], "correct": "afzeggen"}
+        ],
+        "explanation": "Separable infinitive <b>afzeggen</b> stays combined at the end after modal <i>moet</i>."
+    },
+    {
+        "id": 18,
+        "english": "Let me know if Tuesday suits you.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Laat even weten ", "SELECT_1", " dinsdag jou ", "SELECT_2", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "of", "dat", "want"], "correct": "of"},
+            {"id": "SELECT_2", "options": ["---", "uitkomt", "komt uit", "uitkomen"], "correct": "uitkomt"}
+        ],
+        "explanation": "<b>Of</b> (if/whether) introduces a subclause: separable verb attaches back together at the end (<b>uitkomt</b>)."
+    },
+    {
+        "id": 19,
+        "english": "Can I make a new appointment on Wednesday?",
+        "type": "word_order_choice",
+        "promptPrefix": "Choose the correct question order:",
+        "options": [
+            "Kan ik een nieuwe afspraak op woensdag maken?",
+            "Ik kan op woensdag een nieuwe afspraak maken?",
+            "Kan maken ik op woensdag een nieuwe afspraak?"
+        ],
+        "correctIndex": 0,
+        "explanation": "Verb first (<b>Kan</b>) + Subject (<b>ik</b>) + Object/Time + Infinitive (<b>maken</b>)."
+    },
+    {
+        "id": 20,
+        "english": "Unfortunately I am late because my train is delayed.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik ben helaas te laat, ", "SELECT_1", " mijn trein vertraging ", "SELECT_2", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "want", "omdat", "daarom"], "correct": "want"},
+            {"id": "SELECT_2", "options": ["---", "heeft", "heb", "hebben"], "correct": "heeft"}
+        ],
+        "explanation": "<b>Want</b> maintains main clause structure: Subject (<i>mijn trein</i>) + Verb (<i>heeft vertraging</i>)."
+    },
+    {
+        "id": 21,
+        "english": "I would like to swap a shift because I have a party.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik wil graag een dienst ruilen, ", "SELECT_1", " ik een feest ", "SELECT_2", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "omdat", "want", "daarom"], "correct": "omdat"},
+            {"id": "SELECT_2", "options": ["---", "heb", "heeft", "hebben"], "correct": "heb"}
+        ],
+        "explanation": "<b>Omdat</b> sends the conjugated verb <b>heb</b> to the very end of the subclause."
+    },
+    {
+        "id": 22,
+        "english": "I can work for you on Monday.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik kan maandag voor jou ", "SELECT_1", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "werken", "werkt", "gewerkt"], "correct": "werken"}
+        ],
+        "explanation": "Modal verb <i>kan</i> + infinitive <b>werken</b>."
+    },
+    {
+        "id": 23,
+        "english": "I now work at a supermarket in the city center.",
+        "type": "word_order_choice",
+        "promptPrefix": "Choose the correct sentence starting with Subject (Ik):",
+        "options": [
+            "Ik werk nu bij een supermarkt in het centrum.",
+            "Ik nu werk bij een supermarkt in het centrum.",
+            "Werk ik nu bij een supermarkt in het centrum."
+        ],
+        "correctIndex": 0,
+        "explanation": "Subject (<b>Ik</b>) + Verb in position 2 (<b>werk</b>) + Time (<i>nu</i>) + Place."
+    },
+    {
+        "id": 24,
+        "english": "My work starts at nine o'clock.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Mijn werk ", "SELECT_1", " om negen uur."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "begint", "begin", "beginnen"], "correct": "begint"}
+        ],
+        "explanation": "Singular subject <i>Mijn werk</i> gets verb ending <i>-t</i> (<b>begint</b>)."
+    },
+    {
+        "id": 25,
+        "english": "I work three days per week: Monday, Wednesday, and Friday.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik ", "SELECT_1", " drie dagen per week: maandag, woensdag en vrijdag."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "werk", "werkt", "werken"], "correct": "werk"}
+        ],
+        "explanation": "First-person singular pronoun <b>Ik</b> uses stem verb <b>werk</b>."
+    },
+    {
+        "id": 26,
+        "english": "The work is busy sometimes, but I like it.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Het werk is soms druk, ", "SELECT_1", " ik vind het leuk."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "maar", "omdat", "daarom"], "correct": "maar"}
+        ],
+        "explanation": "<b>Maar</b> (but) is a coordinating conjunction with normal word order."
+    },
+    {
+        "id": 27,
+        "english": "Would you vacuum the shop later?",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Wil je straks de winkel ", "SELECT_1", "?"],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "stofzuigen", "stofzuigt", "gestofzuigd"], "correct": "stofzuigen"}
+        ],
+        "explanation": "Modal question <i>Wil je...</i> takes infinitive <b>stofzuigen</b> at the end."
+    },
+    {
+        "id": 28,
+        "english": "Please hang the clothes on the rack.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["", "SELECT_1", " de kleren alstublieft aan het rek."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "Hang", "Hangen", "Hangt"], "correct": "Hang"}
+        ],
+        "explanation": "Imperative command form uses the verb stem: <b>Hang</b>."
+    },
+    {
+        "id": 29,
+        "english": "Lock the door when you are finished.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Doe de deur op slot ", "SELECT_1", " je klaar bent."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "als", "want", "daarom"], "correct": "als"}
+        ],
+        "explanation": "<b>Als</b> (when) introduces time subclause."
+    },
+    {
+        "id": 30,
+        "english": "I saw your job vacancy for a part-time job.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik ", "SELECT_1", " uw vacature gezien voor een parttime baan."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "heb", "heeft", "ben"], "correct": "heb"}
+        ],
+        "explanation": "Present Perfect tense: auxiliary verb <b>heb</b> + past participle <i>gezien</i>."
+    },
+    {
+        "id": 31,
+        "english": "Thank you for accepting my package.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Bedankt dat u mijn pakketje ", "SELECT_1", " heeft."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "aangenomen", "aannemen", "neemt aan"], "correct": "aangenomen"}
+        ],
+        "explanation": "Subclause with <i>dat</i> puts past participle <b>aangenomen</b> before auxiliary <i>heeft</i>."
+    },
+    {
+        "id": 32,
+        "english": "The package is now at the pickup point.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Het pakketje ", "SELECT_1", " nu bij het afhaalpunt."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "liegt", "ligt", "liggen"], "correct": "ligt"}
+        ],
+        "explanation": "Irregular verb <i>liggen</i> for third-person singular is <b>ligt</b>."
+    },
+    {
+        "id": 33,
+        "english": "Would you water the plants while I am away?",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Wil je de planten water ", "SELECT_1", " als ik weg ben?"],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "geven", "geeft", "gegeven"], "correct": "geven"}
+        ],
+        "explanation": "Modal <i>Wil je</i> requires infinitive <b>geven</b>."
+    },
+    {
+        "id": 34,
+        "english": "Can you collect the mail from the mailbox?",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Kun je de post uit de brievenbus ", "SELECT_1", "?"],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "halen", "haalt", "gehaald"], "correct": "halen"}
+        ],
+        "explanation": "Modal <i>Kun je</i> takes infinitive <b>halen</b>."
+    },
+    {
+        "id": 35,
+        "english": "Would you put the trash outside?",
+        "type": "word_order_choice",
+        "promptPrefix": "Choose the correct request format:",
+        "options": [
+            "Wil je het afval buiten zetten?",
+            "Je wil het afval buiten zetten?",
+            "Wil het afval buiten zetten je?"
+        ],
+        "correctIndex": 0,
+        "explanation": "Question order: Verb <b>Wil</b> + Subject <b>je</b> + Object + Place + Infinitive <b>zetten</b>."
+    },
+    {
+        "id": 36,
+        "english": "Do not forget to close the kitchen window.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Vergeet niet het raam in de keuken te ", "SELECT_1", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "sluiten", "sluit", "gesloten"], "correct": "sluiten"}
+        ],
+        "explanation": "Structure <b>te + infinitive</b> (<i>te sluiten</i>)."
+    },
+    {
+        "id": 37,
+        "english": "Thank you for your help with the moving boxes.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Bedankt voor uw hulp met de ", "SELECT_1", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "verhuisdozen", "verhuisdoos", "verhuizen"], "correct": "verhuisdozen"}
+        ],
+        "explanation": "Plural noun <b>verhuisdozen</b> following plural article <i>de</i>."
+    },
+    {
+        "id": 38,
+        "english": "Feel free to come over for a cup of coffee.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Kom gerust een kopje koffie ", "SELECT_1", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "drinken", "drinkt", "gedronken"], "correct": "drinken"}
+        ],
+        "explanation": "Imperative invitation paired with verb <b>drinken</b>."
+    },
+    {
+        "id": 39,
+        "english": "There is often a lot of noise in the hallway in the evening.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Er ", "SELECT_1", " 's avonds vaak veel lawaai in de gang."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "is", "zijn", "heeft"], "correct": "is"}
+        ],
+        "explanation": "Uncountable noun <i>lawaai</i> uses singular <i>Er is</i>."
+    },
+    {
+        "id": 40,
+        "english": "I will be home again at six o'clock.",
+        "type": "word_order_choice",
+        "promptPrefix": "Choose the correct sentence structure:",
+        "options": [
+            "Ik ben om zes uur weer thuis.",
+            "Ik om zes uur ben weer thuis.",
+            "Om zes uur ik ben weer thuis."
+        ],
+        "correctIndex": 0,
+        "explanation": "Subject <b>Ik</b> + Verb <b>ben</b> + Time (<i>om zes uur</i>) + Place."
+    },
+    {
+        "id": 41,
+        "english": "The heating in my home is broken.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["De verwarming in mijn woning ", "SELECT_1", " kapot."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "is", "zijn", "heeft"], "correct": "is"}
+        ],
+        "explanation": "State of being uses auxiliary <b>is</b>."
+    },
+    {
+        "id": 42,
+        "english": "It is very cold in the house.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Het is erg koud ", "SELECT_1", " huis."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "in", "op", "bij"], "correct": "in"}
+        ],
+        "explanation": "Preposition <b>in</b> is used for locations inside buildings."
+    },
+    {
+        "id": 43,
+        "english": "Could you send a technician for the repair?",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Kunt u een monteur ", "SELECT_1", " voor de reparatie?"],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "sturen", "stuurt", "gestuurd"], "correct": "sturen"}
+        ],
+        "explanation": "Polite modal question <i>Kunt u...</i> takes infinitive <b>sturen</b> at the end."
+    },
+    {
+        "id": 44,
+        "english": "When can the technician visit?",
+        "type": "word_order_choice",
+        "promptPrefix": "Choose the correct question starting with 'Wanneer':",
+        "options": [
+            "Wanneer kan de monteur langskomen?",
+            "Wanneer de monteur kan langskomen?",
+            "Wanneer langskomen kan de monteur?"
+        ],
+        "correctIndex": 0,
+        "explanation": "Question word <i>Wanneer</i> + Verb <b>kan</b> + Subject <i>de monteur</i> + Separable infinitive <b>langskomen</b>."
+    },
+    {
+        "id": 45,
+        "english": "My bicycle is at the repair shop for repairs.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Mijn fiets is bij de fietsenmaker ", "SELECT_1", " reparatie."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "voor", "om", "naar"], "correct": "voor"}
+        ],
+        "explanation": "Preposition <b>voor</b> indicates purpose with nouns."
+    },
+    {
+        "id": 46,
+        "english": "I cannot pick up the bicycle today.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik kan de fiets vandaag niet ", "SELECT_1", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "ophalen", "haalt op", "opgehaald"], "correct": "ophalen"}
+        ],
+        "explanation": "Modal <i>kan</i> requires full separable infinitive <b>ophalen</b> at the end."
+    },
+    {
+        "id": 47,
+        "english": "How much does the bicycle repair cost?",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Hoeveel ", "SELECT_1", " de reparatie van mijn fiets?"],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "kost", "kosten", "gekost"], "correct": "kost"}
+        ],
+        "explanation": "Singular subject <i>de reparatie</i> requires <b>kost</b>."
+    },
+    {
+        "id": 48,
+        "english": "I have to stay home because the technician is coming.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik moet thuisblijven ", "SELECT_1", " de monteur ", "SELECT_2", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "omdat", "want", "daarom"], "correct": "omdat"},
+            {"id": "SELECT_2", "options": ["---", "komt", "komen", "is gekomen"], "correct": "komt"}
+        ],
+        "explanation": "<b>Omdat</b> pushes verb <b>komt</b> to the very end."
+    },
+    {
+        "id": 49,
+        "english": "I would like to submit a complaint about the cleaning.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik wil graag een klacht ", "SELECT_1", " over de schoonmaak."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "indienen", "indient", "ingediend"], "correct": "indienen"}
+        ],
+        "explanation": "Modal verb <i>wil</i> takes infinitive <b>indienen</b>."
+    },
+    {
+        "id": 50,
+        "english": "My parking permit expires next month.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Mijn parkeervergunning ", "SELECT_1", " volgende maand."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "verloopt", "verlopen", "verliep"], "correct": "verloopt"}
+        ],
+        "explanation": "Singular subject verb ending <i>-t</i>: <b>verloopt</b>."
+    },
+    {
+        "id": 51,
+        "english": "I want to register for the Dutch course.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik wil mij ", "SELECT_1", " voor de cursus Nederlands."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "inschrijven", "schrijft in", "ingeschreven"], "correct": "inschrijven"}
+        ],
+        "explanation": "Reflexive modal verb phrase: <i>wil mij</i> + infinitive <b>inschrijven</b>."
+    },
+    {
+        "id": 52,
+        "english": "When does the A2 course start?",
+        "type": "word_order_choice",
+        "promptPrefix": "Choose the correct question:",
+        "options": [
+            "Wanneer begint de A2-cursus?",
+            "Wanneer de A2-cursus begint?",
+            "Begint wanneer de A2-cursus?"
+        ],
+        "correctIndex": 0,
+        "explanation": "Question word <i>Wanneer</i> + Verb <b>begint</b> + Subject <i>de A2-cursus</i>."
+    },
+    {
+        "id": 53,
+        "english": "How much does the language course cost?",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Hoeveel ", "SELECT_1", " de taalcursus?"],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "kost", "kosten", "gekost"], "correct": "kost"}
+        ],
+        "explanation": "Singular verb <b>kost</b>."
+    },
+    {
+        "id": 54,
+        "english": "On which days are the lessons?",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Op welke dagen ", "SELECT_1", " de lessen?"],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "zijn", "is", "zijn geweest"], "correct": "zijn"}
+        ],
+        "explanation": "Plural subject <i>de lessen</i> matches plural verb <b>zijn</b>."
+    },
+    {
+        "id": 55,
+        "english": "I cannot come to class tomorrow.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik kan morgen niet naar de les ", "SELECT_1", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "komen", "komt", "kwam"], "correct": "komen"}
+        ],
+        "explanation": "Modal <i>kan</i> pairs with infinitive <b>komen</b>."
+    },
+    {
+        "id": 56,
+        "english": "What homework do I need to do for next week?",
+        "type": "word_order_choice",
+        "promptPrefix": "Choose the correct question order:",
+        "options": [
+            "Welk huiswerk moet ik maken voor volgende week?",
+            "Welk huiswerk ik moet maken voor volgende week?",
+            "Welk huiswerk moet maken ik voor volgende week?"
+        ],
+        "correctIndex": 0,
+        "explanation": "Question phrase <i>Welk huiswerk</i> + Verb <b>moet</b> + Subject <b>ik</b> + Infinitive <b>maken</b>."
+    },
+    {
+        "id": 57,
+        "english": "I registered for a computer course.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik heb mij ", "SELECT_1", " voor een computercursus."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "ingeschreven", "inschrijven", "schreef in"], "correct": "ingeschreven"}
+        ],
+        "explanation": "Present perfect: <i>heb mij</i> + past participle <b>ingeschreven</b>."
+    },
+    {
+        "id": 58,
+        "english": "Can I make up the first lesson at another time?",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Kan ik de eerste les op een ander moment ", "SELECT_1", "?"],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "inhalen", "haalt in", "ingehaald"], "correct": "inhalen"}
+        ],
+        "explanation": "Modal question <i>Kan ik...</i> takes infinitive <b>inhalen</b> at the end."
+    },
+    {
+        "id": 59,
+        "english": "I would like to learn to speak better Dutch.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik wil graag beter Nederlands leren ", "SELECT_1", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "spreken", "spreekt", "gesproken"], "correct": "spreken"}
+        ],
+        "explanation": "Double infinitive construction: <i>leren</i> + <b>spreken</b>."
+    },
+    {
+        "id": 60,
+        "english": "I need the book quickly for my test.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik ", "SELECT_1", " het boek snel nodig voor mijn toets."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "heb", "heeft", "zijn"], "correct": "heb"}
+        ],
+        "explanation": "Phrase <i>nodig hebben</i>: <b>Ik heb ... nodig</b>."
+    },
+    {
+        "id": 61,
+        "english": "Would you like to come eat at my place on Saturday?",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Wil je zaterdag bij mij komen ", "SELECT_1", "?"],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "eten", "eet", "gegeten"], "correct": "eten"}
+        ],
+        "explanation": "Modal phrase <i>Wil je ... komen</i> takes infinitive <b>eten</b>."
+    },
+    {
+        "id": 62,
+        "english": "At the weekend I like going to the park.",
+        "type": "word_order_choice",
+        "promptPrefix": "Choose the correct sentence starting with 'In het weekend':",
+        "options": [
+            "In het weekend ik ga graag naar het park.",
+            "In het weekend ga ik graag naar het park.",
+            "In het weekend ga graag ik naar het park."
+        ],
+        "correctIndex": 1,
+        "explanation": "Inversion after time element: Verb <b>ga</b> + Subject <b>ik</b>."
+    },
+    {
+        "id": 63,
+        "english": "I often walk there with my family.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik ", "SELECT_1", " daar vaak met mijn familie."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "wandel", "wandelt", "wandelen"], "correct": "wandel"}
+        ],
+        "explanation": "First-person verb stem <b>wandel</b>."
+    },
+    {
+        "id": 64,
+        "english": "I choose yoga because I want to feel calm.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik kies voor yoga ", "SELECT_1", " ik rustig wil ", "SELECT_2", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "omdat", "want", "daarom"], "correct": "omdat"},
+            {"id": "SELECT_2", "options": ["---", "worden", "wordt", "geworden"], "correct": "worden"}
+        ],
+        "explanation": "Subclause <b>omdat</b> puts secondary infinitive <b>worden</b> at the end next to <i>wil</i>."
+    },
+    {
+        "id": 65,
+        "english": "I cannot come to sports class today.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik kan vandaag niet naar de sportles ", "SELECT_1", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "komen", "komt", "kwam"], "correct": "komen"}
+        ],
+        "explanation": "Modal <i>kan</i> requires infinitive <b>komen</b>."
+    },
+    {
+        "id": 66,
+        "english": "Can I join the class again next week?",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Kan ik volgende week weer ", "SELECT_1", " met de les?"],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "meedoen", "doet mee", "meegedaan"], "correct": "meedoen"}
+        ],
+        "explanation": "Modal question requires full separable verb <b>meedoen</b>."
+    },
+    {
+        "id": 67,
+        "english": "I am throwing a party because I have a new house.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik geef een feestje ", "SELECT_1", " ik een nieuw huis ", "SELECT_2", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "omdat", "want", "daarom"], "correct": "omdat"},
+            {"id": "SELECT_2", "options": ["---", "heb", "heeft", "hebben"], "correct": "heb"}
+        ],
+        "explanation": "<b>Omdat</b> places conjugated verb <b>heb</b> at the end."
+    },
+    {
+        "id": 68,
+        "english": "The party starts at half past six.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Het feest ", "SELECT_1", " om half zeven."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "begint", "begin", "beginnen"], "correct": "begint"}
+        ],
+        "explanation": "Singular subject <i>Het feest</i> takes <b>begint</b>."
+    },
+    {
+        "id": 69,
+        "english": "We play a game together and eat sandwiches.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Wij spelen samen een spelletje en ", "SELECT_1", " broodjes."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "eten", "eet", "gegeten"], "correct": "eten"}
+        ],
+        "explanation": "Plural subject <b>Wij</b> uses plural verb form <b>eten</b>."
+    },
+    {
+        "id": 70,
+        "english": "I like going to the cinema with my friends.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik ga graag met mijn vrienden naar de ", "SELECT_1", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "bioscoop", "bioscopen", "film"], "correct": "bioscoop"}
+        ],
+        "explanation": "Location noun <b>bioscoop</b>."
+    },
+    {
+        "id": 71,
+        "english": "On Saturdays I always go to the market.",
+        "type": "word_order_choice",
+        "promptPrefix": "Choose the correct sentence starting with 'Op zaterdag':",
+        "options": [
+            "Op zaterdag ik ga altijd naar de markt.",
+            "Op zaterdag ga ik altijd naar de markt.",
+            "Op zaterdag altijd ga ik naar de markt."
+        ],
+        "correctIndex": 1,
+        "explanation": "Time phrase at start causes inversion: Verb <b>ga</b> + Subject <b>ik</b>."
+    },
+    {
+        "id": 72,
+        "english": "I like buying fresh fruit and vegetables at the market.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik koop graag vers fruit en groenten ", "SELECT_1", " de markt."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "op", "in", "bij"], "correct": "op"}
+        ],
+        "explanation": "Standard preposition for market is <b>op de markt</b>."
+    },
+    {
+        "id": 73,
+        "english": "After that I drink a cup of coffee on the terrace.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Daarna ", "SELECT_1", " ik een kopje koffie op het terras."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "drink", "drinkt", "drinken"], "correct": "drink"}
+        ],
+        "explanation": "Inversion after adverb <i>Daarna</i>: <b>drink ik</b> (no -t ending for <i>ik</i>)."
+    },
+    {
+        "id": 74,
+        "english": "My favorite meal is rice with vegetables.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Mijn favoriete maaltijd ", "SELECT_1", " rijst met groenten."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "is", "zijn", "heeft"], "correct": "is"}
+        ],
+        "explanation": "Singular predicate uses <b>is</b>."
+    },
+    {
+        "id": 75,
+        "english": "I prefer cooking this meal with my family.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik kook deze maaltijd het liefst ", "SELECT_1", " mijn familie."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "met", "bij", "voor"], "correct": "met"}
+        ],
+        "explanation": "Preposition <b>met</b> means 'with'."
+    },
+    {
+        "id": 76,
+        "english": "You need to eat well and healthily every day.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Je moet elke dag goed en gezond ", "SELECT_1", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "eten", "eet", "gegeten"], "correct": "eten"}
+        ],
+        "explanation": "Modal <i>moet</i> requires infinitive <b>eten</b>."
+    },
+    {
+        "id": 77,
+        "english": "You do not need to eat sweets or chocolate every day.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Je hoeft niet elke dag snoep te ", "SELECT_1", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "eten", "eet", "gegeten"], "correct": "eten"}
+        ],
+        "explanation": "Structure <b>hoeven niet... te + infinitive</b> (<i>te eten</i>)."
+    },
+    {
+        "id": 78,
+        "english": "I prefer doing my groceries at the supermarket.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik doe mijn boodschappen het liefst ", "SELECT_1", " de supermarkt."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "bij", "op", "naar"], "correct": "bij"}
+        ],
+        "explanation": "Doing groceries at a store uses preposition <b>bij</b>."
+    },
+    {
+        "id": 79,
+        "english": "Mohamed buys sunglasses because the sun is shining.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Mohamed koopt een zonnebril ", "SELECT_1", " de zon ", "SELECT_2", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "omdat", "want", "daarom"], "correct": "omdat"},
+            {"id": "SELECT_2", "options": ["---", "schijnt", "schijnen", "geschenen"], "correct": "schijnt"}
+        ],
+        "explanation": "<b>Omdat</b> places verb <b>schijnt</b> at the end of the subclause."
+    },
+    {
+        "id": 80,
+        "english": "I want to eat a delicious cheese sandwich.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik wil een lekker broodje met kaas ", "SELECT_1", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "eten", "eet", "gegeten"], "correct": "eten"}
+        ],
+        "explanation": "Modal verb <i>wil</i> takes infinitive <b>eten</b>."
+    },
+    {
+        "id": 81,
+        "english": "My package still has not been delivered after five days.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Mijn pakket is na vijf dagen nog steeds niet ", "SELECT_1", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "bezorgd", "bezorgen", "bezorgt"], "correct": "bezorgd"}
+        ],
+        "explanation": "Passive present perfect participle <b>bezorgd</b>."
+    },
+    {
+        "id": 82,
+        "english": "Could you tell me where my package is now?",
+        "type": "word_order_choice",
+        "promptPrefix": "Choose the correct indirect question structure:",
+        "options": [
+            "Kunt u mij vertellen waar mijn pakket nu is?",
+            "Kunt u mij vertellen waar is mijn pakket nu?",
+            "Kunt u vertellen mij waar mijn pakket is nu?"
+        ],
+        "correctIndex": 0,
+        "explanation": "Indirect questions beginning with a question word (<i>waar</i>) act as subclauses with verb at the end (<b>is</b>)."
+    },
+    {
+        "id": 83,
+        "english": "I returned a book late to the library.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik heb een boek te laat ", "SELECT_1", " naar de bibliotheek."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "teruggebracht", "terugbrengen", "brengt terug"], "correct": "teruggebracht"}
+        ],
+        "explanation": "Present perfect tense: <i>heb</i> + past participle <b>teruggebracht</b>."
+    },
+    {
+        "id": 84,
+        "english": "How much fine do I have to pay for this?",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Hoeveel boete moet ik hiervoor ", "SELECT_1", "?"],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "betalen", "betaalt", "betaald"], "correct": "betalen"}
+        ],
+        "explanation": "Modal verb <i>moet</i> requires infinitive <b>betalen</b>."
+    },
+    {
+        "id": 85,
+        "english": "My phone bill is way too high this time.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Mijn telefoonrekening ", "SELECT_1", " dit keer veel te hoog."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "is", "zijn", "heeft"], "correct": "is"}
+        ],
+        "explanation": "Singular noun phrase subject takes <b>is</b>."
+    },
+    {
+        "id": 86,
+        "english": "I would like to request information about a new house.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik wil informatie ", "SELECT_1", " over een nieuwe woning."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "aanvragen", "vraagt aan", "aangevraagd"], "correct": "aanvragen"}
+        ],
+        "explanation": "Modal verb <i>wil</i> takes separable infinitive <b>aanvragen</b>."
+    },
+    {
+        "id": 87,
+        "english": "Which documents do I need to bring to the municipality?",
+        "type": "word_order_choice",
+        "promptPrefix": "Choose the correct question order:",
+        "options": [
+            "Welke documenten moet ik meenemen naar de gemeente?",
+            "Welke documenten ik moet meenemen naar de gemeente?",
+            "Welke documenten moet meenemen ik naar de gemeente?"
+        ],
+        "correctIndex": 0,
+        "explanation": "Question phrase + Modal (<b>moet</b>) + Subject (<b>ik</b>) + Infinitive (<b>meenemen</b>)."
+    },
+    {
+        "id": 88,
+        "english": "I am writing this letter to file a complaint.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik schrijf deze brief om een klacht in te ", "SELECT_1", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "dienen", "dient", "gediend"], "correct": "dienen"}
+        ],
+        "explanation": "Structure <b>om [object] in te [infinitive stem]</b> (<i>in te dienen</i>)."
+    },
+    {
+        "id": 89,
+        "english": "Offer my sincere apologies for the delay.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik bied mijn oprechte excuses ", "SELECT_1", " voor de vertraging."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "aan", "om", "op"], "correct": "aan"}
+        ],
+        "explanation": "Separable verb <i>aanbieden</i> splits in main clause: <b>bied ... aan</b>."
+    },
+    {
+        "id": 90,
+        "english": "I hope that you can help me quickly.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik hoop dat u mij snel kunt ", "SELECT_1", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "helpen", "helpt", "geholpen"], "correct": "helpen"}
+        ],
+        "explanation": "Subclause with <i>dat</i> puts modal <i>kunt</i> + infinitive <b>helpen</b> at the end."
+    },
+    {
+        "id": 91,
+        "english": "Dear Mr. Jansen, I am emailing you because I have a question.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Beste meneer Jansen, ik mail u ", "SELECT_1", " ik een vraag ", "SELECT_2", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "omdat", "want", "daarom"], "correct": "omdat"},
+            {"id": "SELECT_2", "options": ["---", "heb", "heeft", "hebben"], "correct": "heb"}
+        ],
+        "explanation": "<b>Omdat</b> requires subclause word order with verb <b>heb</b> at the end."
+    },
+    {
+        "id": 92,
+        "english": "Dear Sir/Madam, I would like to request information.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Geachte heer/mevrouw, graag ", "SELECT_1", " ik informatie vragen."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "wil", "wilt", "willen"], "correct": "wil"}
+        ],
+        "explanation": "Inversion after adverb <i>graag</i>: <b>wil ik</b>."
+    },
+    {
+        "id": 93,
+        "english": "I cannot come because I am very sick.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik kan niet komen, ", "SELECT_1", " ik ben erg ziek."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "want", "omdat", "daarom"], "correct": "want"}
+        ],
+        "explanation": "<b>Want</b> is followed by normal main clause order (Subject <i>ik</i> + Verb <b>ben</b>)."
+    },
+    {
+        "id": 94,
+        "english": "I would like to swap because it is my daughter's birthday.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik wil graag ruilen, ", "SELECT_1", " mijn dochter jarig ", "SELECT_2", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "omdat", "want", "daarom"], "correct": "omdat"},
+            {"id": "SELECT_2", "options": ["---", "is", "zijn", "was"], "correct": "is"}
+        ],
+        "explanation": "<b>Omdat</b> places verb <b>is</b> at the end of the clause."
+    },
+    {
+        "id": 95,
+        "english": "I have an appointment, that is why I cannot work.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Ik heb een afspraak, ", "SELECT_1", " ", "SELECT_2", " niet werken."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "daarom", "omdat", "want"], "correct": "daarom"},
+            {"id": "SELECT_2", "options": ["---", "kan ik", "ik kan", "kan"], "correct": "kan ik"}
+        ],
+        "explanation": "<b>Daarom</b> causes inversion in the next clause: Verb (<b>kan</b>) + Subject (<b>ik</b>)."
+    },
+    {
+        "id": 96,
+        "english": "If it rains, we stay comfortably at home.",
+        "type": "word_order_choice",
+        "promptPrefix": "Choose the correct sentence structure starting with 'Als':",
+        "options": [
+            "Als het regent, blijven wij lekker thuis.",
+            "Als het regent, wij blijven lekker thuis.",
+            "Als het regent, lekker thuis blijven wij."
+        ],
+        "correctIndex": 0,
+        "explanation": "When an <b>Als</b> subclause comes first, the main clause immediately starts with the verb (<b>blijven wij</b>)."
+    },
+    {
+        "id": 97,
+        "english": "What time does the meeting start tonight?",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Hoe laat ", "SELECT_1", " de bijeenkomst vanavond?"],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "begint", "begin", "beginnen"], "correct": "begint"}
+        ],
+        "explanation": "Question starts with question phrase + verb <b>begint</b> + subject."
+    },
+    {
+        "id": 98,
+        "english": "Why is he not going to work today?",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Waarom ", "SELECT_1", " hij vandaag niet naar zijn werk?"],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "gaat", "ga", "gaan"], "correct": "gaat"}
+        ],
+        "explanation": "Question word <i>Waarom</i> + Verb <b>gaat</b> + Subject <i>hij</i>."
+    },
+    {
+        "id": 99,
+        "english": "Kind regards, and thank you in advance.",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Met vriendelijke groet, en alvast ", "SELECT_1", "."],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "bedankt", "danken", "dank u"], "correct": "bedankt"}
+        ],
+        "explanation": "Standard closing phrase: <i>alvast bedankt</i>."
+    },
+    {
+        "id": 100,
+        "english": "Greetings from Samira and see you next week!",
+        "type": "dropdown_and_order",
+        "sentenceParts": ["Groetjes van Samira en ", "SELECT_1", " volgende week!"],
+        "dropdowns": [
+            {"id": "SELECT_1", "options": ["---", "tot", "naar", "bij"], "correct": "tot"}
+        ],
+        "explanation": "Preposition for farewells: <b>tot volgende week</b> ('until next week')."
+    }
+];
+
+let userState = {};
+
+function initQuiz() {
+    const container = document.getElementById("quiz-container");
+    container.innerHTML = "";
+    document.getElementById("total-q").innerText = questions.length;
+    document.getElementById("total-score").innerText = questions.length;
+
+    questions.forEach((q) => {
+        userState[q.id] = { answered: false, correct: false };
+
+        const card = document.createElement("div");
+        card.className = "question-card";
+        card.id = `q-card-${q.id}`;
+
+        let html = `
+            <div class="question-number">Question ${q.id} of 100</div>
+            <div class="english-prompt">"${q.english}"</div>
+        `;
+
+        if (q.type === "dropdown_and_order") {
+            html += `<div class="sentence-builder">`;
+            q.sentenceParts.forEach(part => {
+                if (part.startsWith("SELECT_")) {
+                    const drop = q.dropdowns.find(d => d.id === part);
+                    html += `<select id="drop-${q.id}-${drop.id}">`;
+                    drop.options.forEach(opt => {
+                        html += `<option value="${opt}">${opt}</option>`;
+                    });
+                    html += `</select>`;
+                } else {
+                    html += `<span>${part}</span>`;
+                }
+            });
+            html += `</div>`;
+        } else if (q.type === "word_order_choice") {
+            html += `<div class="word-order-label">${q.promptPrefix}</div>`;
+            html += `<div class="option-group">`;
+            q.options.forEach((opt, oIdx) => {
+                html += `
+                    <label class="option-label">
+                        <input type="radio" name="wo-${q.id}" value="${oIdx}">
+                        ${opt}
+                    </label>
+                `;
+            });
+            html += `</div>`;
+        }
+
+        html += `
+            <div class="actions">
+                <button class="btn-check" onclick="checkAnswer(${q.id})">Check Answer</button>
+            </div>
+            <div class="feedback-box" id="feedback-${q.id}"></div>
+        `;
+
+        card.innerHTML = html;
+        container.appendChild(card);
+    });
+
+    updateScoreBoard();
+}
+
+function checkAnswer(qId) {
+    const q = questions.find(item => item.id === qId);
+    const feedbackBox = document.getElementById(`feedback-${qId}`);
+    let isCorrect = true;
+
+    if (q.type === "dropdown_and_order") {
+        q.dropdowns.forEach(drop => {
+            const selectElem = document.getElementById(`drop-${q.id}-${drop.id}`);
+            if (selectElem.value !== drop.correct) {
+                isCorrect = false;
+            }
+        });
+    } else if (q.type === "word_order_choice") {
+        const selected = document.querySelector(`input[name="wo-${q.id}"]:checked`);
+        if (!selected || parseInt(selected.value) !== q.correctIndex) {
+            isCorrect = false;
+        }
+    }
+
+    userState[qId].answered = true;
+    userState[qId].correct = isCorrect;
+
+    if (isCorrect) {
+        feedbackBox.className = "feedback-box correct";
+        feedbackBox.innerHTML = `<b>Correct! 🎉</b><div class="explanation">${q.explanation}</div>`;
+    } else {
+        feedbackBox.className = "feedback-box incorrect";
+        feedbackBox.innerHTML = `<b>Not quite right. Try again!</b><div class="explanation">${q.explanation}</div>`;
+    }
+
+    updateScoreBoard();
+}
+
+function filterQuestions(start, end) {
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+
+    questions.forEach(q => {
+        const card = document.getElementById(`q-card-${q.id}`);
+        if (start === 'all') {
+            card.style.display = 'block';
+        } else if (q.id >= start && q.id <= end) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+function updateScoreBoard() {
+    let score = 0;
+    let completed = 0;
+
+    Object.keys(userState).forEach(key => {
+        if (userState[key].answered) {
+            completed++;
+            if (userState[key].correct) score++;
+        }
+    });
+
+    document.getElementById("score").innerText = score;
+    document.getElementById("progress").innerText = completed;
+}
+
+function resetQuiz() {
+    initQuiz();
+}
+
+window.onload = initQuiz;
+</script>
+
+</body>
+</html>
